@@ -7,10 +7,45 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Library</h1>
-    <div id="card-container">
-        
-    </div>
+    <main>
+        <h1>Library <button class="btn" id="openDialogBtn">New Book</button> </h1>
+        <div id="card-container">
+            
+        </div>
+    </main>
+
+    <dialog id="formDialog">
+        <button id="closeDialogBtn"> X </button>
+        <form>
+            <h2>Add a Book</h2>
+            <div class="form-row">
+                <label for="nameInput">Name</label>
+                <input type="text" required minlength="4" name="name" id="nameInput" placeholder="The Hobbit">
+            </div>
+            <div class="form-row">
+                <label for="authorInput">Author</label>
+                <input type="text" name="author" required minlength="4" id="authorInput" placeholder="J.R.R Tolkien">
+            </div>
+            <div class="form-row">
+                <label for="pagesInput">Pages</label>
+                <input type="number" name="pages" required id="pagesInput" min="10">
+            </div>
+            <fieldset>
+                <legend>Read?</legend>
+                <div class="form-row">
+                    <label for="yesInput">Yes</label>
+                    <input type="radio" name="read" value="true" id="yesInput">
+                </div>
+                <div class="form-row">
+                    <label for="noInput">No</label>
+                    <input type="radio" name="read" checked value="false" id="noInput">
+                </div>
+                
+            </fieldset>
+            <button class="btn bg-primary text-white rounded-none">Create</button>
+        </form>
+    </dialog>
+   
     <script src="script.js"></script>
 </body>
 </html>
