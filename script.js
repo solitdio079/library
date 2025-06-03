@@ -7,11 +7,26 @@ const formDialogEl = document.querySelector("#formDialog")
 
 const addBookForm = document.querySelector("#formDialog form")
 
-
 const myLibrary = localStorage.getItem("books") ? JSON.parse(localStorage.getItem("books")): []
 
 localStorage.getItem("books") ? "":localStorage.setItem("books", JSON.stringify(myLibrary))
 
+
+
+class Book{
+    constructor(name,author,pages,read=false){
+    this.id = crypto.randomUUID()
+    this.name = name 
+    this.author = author
+    this.pages = pages 
+    this.read = read
+
+    }
+    toggleRead(){
+        this.read = !this.read
+    }
+    
+}
 if(localStorage.getItem("books")){
     myLibrary.forEach(item => {
         Object.setPrototypeOf(item, Book.prototype)
@@ -19,17 +34,6 @@ if(localStorage.getItem("books")){
 }
 
 
-function Book(name,author,pages,read=false){
-    this.id = crypto.randomUUID()
-    this.name = name 
-    this.author = author
-    this.pages = pages 
-    this.read = read
-}
-
-Book.prototype.toggleRead = function () {
-    this.read = !this.read
-}
 
 function addBookToLibrary(name,author,pages,read=false){
     const newBook = new Book(name,author,pages,read)
