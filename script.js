@@ -7,6 +7,14 @@ const formDialogEl = document.querySelector("#formDialog")
 
 const addBookForm = document.querySelector("#formDialog form")
 
+// my Inputs and error
+const nameInput = document.querySelector("#nameInput")
+const nameInputError = document.querySelector(".nameInputError")
+const authorInput = document.querySelector("#authorInput")
+const authorInputError = document.querySelector(".authorInputError")
+const pagesInput = document.querySelector("#pagesInput")
+const pagesInputError = document.querySelector(".pagesInputError")
+
 const myLibrary = localStorage.getItem("books") ? JSON.parse(localStorage.getItem("books")): []
 
 localStorage.getItem("books") ? "":localStorage.setItem("books", JSON.stringify(myLibrary))
@@ -115,6 +123,7 @@ addBookForm.addEventListener("submit", function (e){
     e.preventDefault()
     console.log("Form Submitted!")
 
+
     const formData = new FormData(addBookForm)
     const bodyObject = Object.fromEntries(formData)
     
@@ -122,6 +131,44 @@ addBookForm.addEventListener("submit", function (e){
     listBooks()
     addBookForm.reset()
 
+
+})
+function validateInput(inputEl, inputError){
+    if(inputEl.validity.valid){
+        console.log("valid input")
+        inputEl.setCustomValidity(``)
+    }else if(inputEl.validity.valueMissing){
+        inputEl.setCustomValidity(`This input is required!`)
+    }
+    else if(inputEl.validity.tooShort){
+        inputEl.setCustomValidity(`Min character number is 4 . You entered ${inputEl.length} characters`)
+    }else{
+        inputEl.setCustomValidity(``)
+    }
+    inputEl.reportValidity()
+    inputError.textContent = inputEl.validationMessage
+}
+// Input validations 
+nameInput.addEventListener("change", ()=> {
+    validateInput(nameInput, nameInputError)  
+})
+authorInput.addEventListener("change", () => {
+    validateInput(authorInput,authorInputError)
+})
+pagesInput.addEventListener("change", () => {
+    if(pagesInput.validity.valid){
+        //console.log("valid input")
+        pagesInput.setCustomValidity(``)
+    }else if(pagesInput.validity.valueMissing){
+        pagesInput.setCustomValidity(`This input is required!`)
+    }
+    else if(inputEl.validity.rangeUnderflow){
+        pagesInput.setCustomValidity(`Min pages number is 10 . You entered ${pagesInput.value} pages.`)
+    }else{
+        pagesInput.setCustomValidity(``)
+    }
+    pagesInput.reportValidity()
+    pagesInput.textContent = pagesInput.validationMessage
 
 })
 
